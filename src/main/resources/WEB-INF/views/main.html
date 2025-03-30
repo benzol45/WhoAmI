@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee identifier</title>
+</head>
+<body>
+<h2>Employee identifier</h2>
+<br>
+<form action="#" th:action="@{/}" th:object="${userInput}" method="post">
+    <div>
+        <input type="number" th:field="*{id}" placeholder="ID"/>
+        <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" style="color: red;"></p>
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+    </div>
+    <button type="submit">Who am I ?</button>
+</form>
+
+</body>
+</html>

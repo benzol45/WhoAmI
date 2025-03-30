@@ -28,7 +28,6 @@ public class EmployeeRepository {
 
 
     public Optional<String> getNameById(int employeeId) {
-        EntityTransaction transaction = em.getTransaction();
         Employee foundEmployee = em.find(Employee.class, employeeId);
 
         if (foundEmployee != null) {

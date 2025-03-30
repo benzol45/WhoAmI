@@ -11,8 +11,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "identifier")
-public class SpringConfig {
+public class JpaConfig {
 
     @Bean
     public DataSource dataSource() {

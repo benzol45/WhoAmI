@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee</title>
+</head>
+<body>
+<h2>You are:</h2>
+<p><span th:text="${employee.name}"></span></p>
+<a th:href="@{/}">Resume</a>
+</body>
+</html>

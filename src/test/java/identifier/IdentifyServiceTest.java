@@ -1,5 +1,6 @@
 package identifier;
 
+import identifier.model.EmployeeModel;
 import identifier.repository.EmployeeRepository;
 import identifier.service.IdentifyService;
 import org.junit.jupiter.api.Test;
@@ -32,11 +33,11 @@ class IdentifyServiceTest {
         when(repository.getNameById(TEST_ID)).thenReturn(Optional.of(TEST_NAME));
 
         //Act
-        Optional<String> result = identifyService.getName(TEST_ID);
+        Optional<?> result = identifyService.getName(TEST_ID);
 
         //Assert
         assertTrue(result.isPresent());
-        assertEquals(TEST_NAME, result.get());
+        assertEquals(TEST_NAME, ((EmployeeModel)result.get()).getName());
         verify(repository, times(1)).getNameById(1);
     }
 
@@ -46,11 +47,11 @@ class IdentifyServiceTest {
         //Arrange
 
         //Act
-        Optional<String> result = identifyService.getName(employeeId);
+        Optional<?> result = identifyService.getName(employeeId);
 
         //Assert
         assertTrue(result.isPresent());
-        assertEquals("External consultant", result.get());
+        assertEquals("External consultant", ((EmployeeModel)result.get()).getName());
         verify(repository, never()).getNameById(anyInt());
 
     }
@@ -62,7 +63,7 @@ class IdentifyServiceTest {
         when(repository.getNameById(TEST_ID)).thenReturn(Optional.empty());
 
         //Act
-        Optional<String> result = identifyService.getName(TEST_ID);
+        Optional<?> result = identifyService.getName(TEST_ID);
 
         //Assert
         assertFalse(result.isPresent());
