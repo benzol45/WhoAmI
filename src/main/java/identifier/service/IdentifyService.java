@@ -29,8 +29,9 @@ public class IdentifyService {
                 .toList();
     }
 
-    @Cacheable(value = "employee", key = "#employeeId")
-    public Optional<EmployeeModel> findEmployee(Integer employeeId) {
+    @Cacheable(value = "employee", key = "#root.args[0]") //employeeId
+    public Optional<EmployeeModel> findEmployee(int employeeId) {
+        System.out.println("Fetch data from DB");
         return checkIsAnEternalConsultant(employeeId)
                 ? Optional.of(new EmployeeModel(employeeId, "External consultant"))
                 : employeeRepository.findById(employeeId).map(this::mapEmployeeEntityToModel);
@@ -46,15 +47,14 @@ public class IdentifyService {
     }
 
     @Transactional
-    @CacheEvict(value = "employee", key = "#employeeId")
-    public Integer editEmployee(Integer employeeId, EmployeeModel employeeModel) {
+    @CacheEvict(value = "employee", key = "#root.args[0]") //employeeId
+    public Integer editEmployee(int employeeId, EmployeeModel employeeModel) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(EntityNotFoundException::new);
+        employee.setId(employeeModel.getId());
         employee.setName(employeeModel.getName());
 
         return employeeRepository.save(employee).getId();
     }
-
-
 
     private EmployeeModel mapEmployeeEntityToModel(Employee entity) {
         return new EmployeeModel(entity.getId(), entity.getName());

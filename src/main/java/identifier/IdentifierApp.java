@@ -7,6 +7,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class IdentifierApp {
     public static void main(String[] args) {
         SpringApplication.run(IdentifierApp.class, args);
-
     }
 }
