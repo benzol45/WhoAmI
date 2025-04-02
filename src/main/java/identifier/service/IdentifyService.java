@@ -5,7 +5,9 @@ import identifier.model.EmployeeModel;
 import identifier.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +21,7 @@ public class IdentifyService {
     }
 
     public List<EmployeeModel> getAllEmployee() {
-        return employeeRepository.getAll()
+        return employeeRepository.findAll()
                 .stream()
                 .map(this::mapEmployeeEntityToModel)
                 .toList();
@@ -28,15 +30,16 @@ public class IdentifyService {
     public Optional<EmployeeModel> findEmployee(Integer employeeId) {
         return checkIsAnEternalConsultant(employeeId)
                 ? Optional.of(new EmployeeModel(employeeId, "External consultant"))
-                : employeeRepository.getById(employeeId).map(this::mapEmployeeEntityToModel);
+                : employeeRepository.findById(employeeId).map(this::mapEmployeeEntityToModel);
     }
 
+    @Transactional
     public Integer createEmployee(EmployeeModel employeeModel) {
         Employee employee = new Employee();
         employee.setId(employeeModel.getId());
         employee.setName(employeeModel.getName());
 
-        return employeeRepository.createEmployee(employee).getId();
+        return employeeRepository.save(employee).getId();
     }
 
     private EmployeeModel mapEmployeeEntityToModel(Employee entity) {
