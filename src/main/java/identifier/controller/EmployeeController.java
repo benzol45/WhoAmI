@@ -19,8 +19,12 @@ import java.util.Optional;
 @RequestMapping("/")
 public class EmployeeController {
 
+    private final IdentifyService identifyService;
+
     @Autowired
-    private IdentifyService identifyService;
+    public EmployeeController(IdentifyService identifyService) {
+        this.identifyService = identifyService;
+    }
 
     @GetMapping
     public String showForm(Model model) {

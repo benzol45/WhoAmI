@@ -1,14 +1,14 @@
 package identifier.repository;
 
 import identifier.entity.Employee;
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,12 +17,23 @@ public class EmployeeRepository {
     @PersistenceContext
     private EntityManager em;
 
+    @PostConstruct
+    public void init() {
+        //fillEmployee();
+    }
+
     private void fillEmployee() {
         EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(new Employee(11, "John Doe"));
-        em.persist(new Employee(12, "Michael Smith"));
-        em.persist(new Employee(13, "David Brown"));
+        //transaction.begin();
+        if (em.find(Employee.class, 11) == null) {
+            em.persist(new Employee(11, "John Doe"));
+        }
+        if (em.find(Employee.class, 12) == null) {
+            em.persist(new Employee(12, "Michael Smith"));
+        }
+        if (em.find(Employee.class, 13) == null) {
+            em.persist(new Employee(13, "David Brown"));
+        }
         transaction.commit();
     }
 
@@ -48,4 +59,13 @@ public class EmployeeRepository {
             return Optional.empty();
         }
     }
+
+/*    @Transactional
+    public void initData(List<Employee> employees) {
+        employees.forEach(employee -> {
+            if (em.find(Employee.class, employee.getId()) == null) {
+                em.persist(employee);
+            }
+        });
+    }*/
 }
