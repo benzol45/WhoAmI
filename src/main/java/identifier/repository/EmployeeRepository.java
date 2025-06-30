@@ -17,25 +17,25 @@ public class EmployeeRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @PostConstruct
-    public void init() {
+    //@PostConstruct
+    //public void init() {
         //fillEmployee();
-    }
+    //}
 
-    private void fillEmployee() {
-        EntityTransaction transaction = em.getTransaction();
-        //transaction.begin();
-        if (em.find(Employee.class, 11) == null) {
-            em.persist(new Employee(11, "John Doe"));
-        }
-        if (em.find(Employee.class, 12) == null) {
-            em.persist(new Employee(12, "Michael Smith"));
-        }
-        if (em.find(Employee.class, 13) == null) {
-            em.persist(new Employee(13, "David Brown"));
-        }
-        transaction.commit();
-    }
+//    private void fillEmployee() {
+//        EntityTransaction transaction = em.getTransaction();
+//        //transaction.begin();
+//        if (em.find(Employee.class, 11) == null) {
+//            em.persist(new Employee(11, "John Doe"));
+//        }
+//        if (em.find(Employee.class, 12) == null) {
+//            em.persist(new Employee(12, "Michael Smith"));
+//        }
+//        if (em.find(Employee.class, 13) == null) {
+//            em.persist(new Employee(13, "David Brown"));
+//        }
+//        transaction.commit();
+//    }
 
 
     public Optional<String> getNameById(int employeeId) {
