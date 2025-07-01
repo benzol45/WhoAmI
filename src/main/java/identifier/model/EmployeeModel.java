@@ -2,19 +2,20 @@ package identifier.model;
 
 
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.lang.NonNull;
+import jakarta.validation.constraints.NotNull;
+
 
 public class EmployeeModel {
-    @NonNull
+    @NotNull
     private Integer id;
-    @NonNull
+    @NotNull
     @NotBlank
     private String name;
 
     public EmployeeModel() {
     }
 
-    public EmployeeModel(@NonNull Integer id, @NonNull String name) {
+    public EmployeeModel(@NotNull Integer id, @NotNull String name) {
         this.id = id;
         this.name = name;
     }
