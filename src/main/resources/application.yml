@@ -5,7 +5,7 @@ spring:
   application:
     name: Identifier
   datasource:
-    url: jdbc:postgresql://localhost:5432/EmployeeDB
+    url: ${SPRING_DATASOURCE_URL}
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

@@ -1,0 +1,2 @@
+docker build -f docker/Dockerfile -t whoami-app .
+docker compose -f docker/docker-compose.yml up --build
